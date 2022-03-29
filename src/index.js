@@ -47,6 +47,10 @@ app.get("/sign-up", function (req, res) {
   res.render("pages/sign-up");
 });
 
+app.get("/room-page", function (req, res) {
+    res.render("pages/room-page");
+});
+
 app.get("/dashboard", authMiddleware, async function (req, res) {
   const feed = await userFeed.get();
   res.render("pages/dashboard", { user: req.user, feed });
