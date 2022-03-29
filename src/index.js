@@ -13,6 +13,9 @@ const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
+//var publicDir = require('path').join(__dirname,'/public');
+//app.use(express.static(publicDir));
+
 // CS5356 TODO #2
 // Uncomment this next block after you've created serviceAccountKey.json
 admin.initializeApp({
@@ -52,6 +55,9 @@ app.get("/room-page", function (req, res) {
 });
 app.get("/vr_tests", function (req, res) {
     res.render("pages/vr_tests");
+});
+app.get("/urban-space-page", function (req, res) {
+    res.render("pages/urban-space-page");
 });
 
 app.get("/dashboard", authMiddleware, async function (req, res) {
