@@ -50,6 +50,9 @@ app.get("/sign-up", function (req, res) {
 app.get("/room-page", function (req, res) {
     res.render("pages/room-page");
 });
+app.get("/vr_tests", function (req, res) {
+    res.render("pages/vr_tests");
+});
 
 app.get("/dashboard", authMiddleware, async function (req, res) {
   const feed = await userFeed.get();
