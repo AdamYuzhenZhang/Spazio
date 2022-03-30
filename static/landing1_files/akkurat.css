@@ -1,0 +1,94 @@
+/*
+ * Legal Disclaimer for Web licence
+ *
+ * Licence to use webfonts for displaying dynamic text on designated website domains.
+ *
+ * Should the license page views limit be exceeded the license holder will be required to contact Lineto.com for an upgrade.
+ * 
+ * It is strictly prohibited to rename the font and to download or use these fonts in any other media. 
+ * 
+ * These Web fonts are licensed exclusively for the use on the following domain(s) and their subdomains:
+ *
+ * For use on:
+ * weforum.org, up to 25m monthly page views
+ *
+ */
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-Regular.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-Italic.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-Light.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-LightItalic.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-Bold.woff") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-Bold.woff2") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-BoldItalic.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-Black.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Akkurat";
+  src: url("./Akkurat/AkkuratLLWeb-BlackItalic.woff2") format("woff2"),
+    url("./Akkurat/AkkuratLLWeb-BlackItalic.woff") format("woff");
+  font-weight: 900;
+  font-style: italic;
+}
+
+body.akkurat {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 900;
+  }
+}
+
+body {
+  font-family: "Akkurat", sans-serif;
+}
