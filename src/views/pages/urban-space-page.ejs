@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+  <script>
+    AFRAME.registerComponent('refresh-obj',{
+      init: function(){
+        this.el.addEventListener('click', function(){
+          var myCursor = document.querySelector('myCursor');
+          myCursor.components.raycaster.refreshObjects();
+        })
+      }
+    })
+  </script>
+</head>
+
+<body>
+<header>
+  <%- include('../partials/nav') %>
+</header>
+
+<div class="container">
+  Urban Space Page Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
+  <form id="login-form">
+    <label>Login</label>
+    <input id="login" type="text" name="login" />
+    <label>Password</label>
+    <input type="password" name="password" />
+    <button>Log in</button>
+  </form>
+  <div id="login-error" style="display: none;">
+  </div>
+  <a href="/dashboard">Dashboard</a>
+</div>
+
+<style>
+  a-scene {
+    height: 600px;
+    width: 80%;
+    left: 50%;
+    margin: 0 0 0 -40%;
+  }
+</style>
+
+<div class="container" id="myEmbeddedScene">
+  <a-scene embedded>
+    <a-assets>
+      <a-asset-item id="base-obj" src="../../../static/models/UrbanSysBase.obj"></a-asset-item>
+      <a-asset-item id="base-mtl" src="../../../static/models/UrbanSysBase.mtl"></a-asset-item>
+      <a-asset-item id="0-obj" src="../../../static/models/UrbanSysPhase0.obj"></a-asset-item>
+      <a-asset-item id="0-mtl" src="../../../static/models/UrbanSysPhase0.mtl"></a-asset-item>
+      <a-asset-item id="1-obj" src="../../../static/models/UrbanSysPhase1.obj"></a-asset-item>
+      <a-asset-item id="1-mtl" src="../../../static/models/UrbanSysPhase1.mtl"></a-asset-item>
+      <a-asset-item id="performance-obj" src="../../../static/models/UrbanSysPerformance.obj"></a-asset-item>
+      <a-asset-item id="performance-mtl" src="../../../static/models/UrbanSysPerformance.mtl"></a-asset-item>
+      <a-asset-item id="dining-obj" src="../../../static/models/UrbanSysDining.obj"></a-asset-item>
+      <a-asset-item id="dining-mtl" src="../../../static/models/UrbanSysDining.mtl"></a-asset-item>
+      <a-asset-item id="plant-obj" src="../../../static/models/UrbanSysPlants.obj"></a-asset-item>
+      <a-asset-item id="plant-mtl" src="../../../static/models/UrbanSysPlants.mtl"></a-asset-item>
+      <a-asset-item id="truck-obj" src="../../../static/models/UrbanSysTrucks.obj"></a-asset-item>
+      <a-asset-item id="truck-mtl" src="../../../static/models/UrbanSysTrucks.mtl"></a-asset-item>
+    </a-assets>
+
+    <!-- Sky -->
+    <a-sky color="#E9E9E9"></a-sky>
+    <!-- Ambient Light -->
+    <a-entity light="type: ambient; color: #A1A1A1"></a-entity>
+    <!-- Directional Light -->
+    <a-entity light="type: directional; color: #BBBBBB; intensity: 0.5; castShadow: true" position="2 2 1"></a-entity>
+
+    <!-- Camera -->
+    <a-entity position="6 0 2" rotation="0 120 0">
+      <a-camera user-height="1.6" active="true">
+        <a-entity id="myCursor"
+                  animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.001 0.001 0.001; to: 0.01 0.01 0.01"
+                  animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 0.01 0.01 0.01; to: 0.001 0.001 0.001"
+                  animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 0.01 0.01 0.01"
+                  cursor="fuse: true;"
+                  material="color: #C0C0C0; shader: flat"
+                  position="0 0 -1"
+                  scale="0.01 0.01 0.01"
+                  geometry="primitive: ring"
+                  raycaster="objects: .clickable">
+        </a-entity>
+      </a-camera>
+    </a-entity>
+    <!-- OBJ Model | Base -->
+    <a-entity obj-model="obj: #base-obj; mtl: #base-mtl" class="not-clickable"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | 0 -->
+    <a-entity id="phase0" visible="true" class="not-clickable"
+              obj-model="obj: #0-obj; mtl: #0-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | 1 -->
+    <a-entity id="phase1" visible="false" class="not-clickable"
+              obj-model="obj: #1-obj; mtl: #1-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | dining -->
+    <a-entity id="dining" visible="false" class="not-clickable"
+              obj-model="obj: #dining-obj; mtl: #dining-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | performance -->
+    <a-entity id="performance" visible="false" class="not-clickable"
+              obj-model="obj: #performance-obj; mtl: #performance-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | plant -->
+    <a-entity id="plant" visible="false" class="not-clickable"
+              obj-model="obj: #plant-obj; mtl: #plant-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+    <!-- OBJ Model | truck -->
+    <a-entity id="truck" visible="false" class="not-clickable"
+              obj-model="obj: #truck-obj; mtl: #truck-mtl"
+              position="0 0 0" rotation="0 0 0" scale="1 1 1"
+              shadow="cast: true; receive: true">
+    </a-entity>
+
+    <!-- Buttons -->
+    <a-entity position="3 2.5 5" rotation="0 -50 0" scale="0.6 0.6 0.6">
+      <a-entity text="font: mozillavr; value: HOVER ON YELLOW BUTTONS TO TOGGLE"
+                position="0.8 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 2.2 5" rotation="0 -50 0" scale="0.6 0.6 0.6">
+      <a-box id="button0" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase0; visible: true"
+             event-set__targetVis2="_event: click; _target: #phase1; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: false"
+             event-set__targetVis4="_event: click; _target: #performance; visible: false"
+             event-set__targetVis5="_event: click; _target: #plant; visible: false"
+             event-set__targetVis6="_event: click; _target: #truck; visible: false"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Phase 0: Original Street"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 1.9 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+      <a-box id="button1" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase1; visible: true"
+             event-set__targetVis2="_event: click; _target: #phase0; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: false"
+             event-set__targetVis4="_event: click; _target: #performance; visible: false"
+             event-set__targetVis5="_event: click; _target: #plant; visible: false"
+             event-set__targetVis6="_event: click; _target: #truck; visible: false"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Phase 1: Cleared Street"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 1.6 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+      <a-box id="dining" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase1; visible: false"
+             event-set__targetVis2="_event: click; _target: #phase0; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: true"
+             event-set__targetVis4="_event: click; _target: #performance; visible: false"
+             event-set__targetVis5="_event: click; _target: #plant; visible: false"
+             event-set__targetVis6="_event: click; _target: #truck; visible: false"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Intervention: Dining"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 1.3 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+      <a-box id="performance" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase1; visible: false"
+             event-set__targetVis2="_event: click; _target: #phase0; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: false"
+             event-set__targetVis4="_event: click; _target: #performance; visible: true"
+             event-set__targetVis5="_event: click; _target: #plant; visible: false"
+             event-set__targetVis6="_event: click; _target: #truck; visible: false"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Intervention: Performance"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 1.0 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+      <a-box id="plant" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase1; visible: false"
+             event-set__targetVis2="_event: click; _target: #phase0; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: false"
+             event-set__targetVis4="_event: click; _target: #performance; visible: false"
+             event-set__targetVis5="_event: click; _target: #plant; visible: true"
+             event-set__targetVis6="_event: click; _target: #truck; visible: false"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Intervention: Green Space"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+    <a-entity position="3 0.7 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+      <a-box id="truck" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
+             event-set__enter="_event: mouseenter; material.color: #FFFF00"
+             event-set__leave="_event: mouseleave; material.color: #DEDE00"
+             event-set__targetVis="_event: click; _target: #phase1; visible: false"
+             event-set__targetVis2="_event: click; _target: #phase0; visible: false"
+             event-set__targetVis3="_event: click; _target: #dining; visible: false"
+             event-set__targetVis4="_event: click; _target: #performance; visible: false"
+             event-set__targetVis5="_event: click; _target: #plant; visible: false"
+             event-set__targetVis6="_event: click; _target: #truck; visible: true"
+             refresh-obj>
+      </a-box>
+      <a-entity text="font: mozillavr; value: Intervention: Food Truck"
+                position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
+    </a-entity>
+
+  </a-scene>
+
+  <!--div style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
+    <div id="htmlElement" style="background: rgb(30, 30, 30); color: rgb(230, 230, 230); font-size: 48px">Hello, HTML!</div>
+  </div-->
+  <!--div style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
+    <div id="planeHTML" style="background: linear-gradient(red, yellow, green); font-size: 64px; padding-top: 15px; color: #222; font-weight: 600; align-items: center; text-align: center; border-radius: 200px">
+      <p style="border: 1px #FFF">My HTML Text</p>
+    </div>
+  </div-->
+</div>
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth-compat.js"></script>
+
+<script>
+
+  window.onload = () => {
+    console.log('Running onload')
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZkmvEZ5tj8GxQmThlmI09Qw1EF4SIdeA",
+      authDomain: "startup-systems-4f1d8.firebaseapp.com",
+      projectId: "startup-systems-4f1d8",
+      storageBucket: "startup-systems-4f1d8.appspot.com",
+      messagingSenderId: "477788686794",
+      appId: "1:477788686794:web:f7b6b512819f3735576733",
+      measurementId: "G-F0RX4MJK6E"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+
+    app.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
+    document
+            .getElementById("login-form")
+            .addEventListener("submit", (event) => {
+              event.preventDefault();
+              const login = event.target.login.value;
+              const password = event.target.password.value;
+
+              // Create a new user using the Firebase SDK for Web
+              // Get the users ID token
+              // Start a new session with the users ID token
+              // Redirect the user to the /dashboard
+              firebase.auth().createUserWithEmailAndPassword(login, password)
+                      .then((userCredential) => {
+                        // Signed in
+                        const user = userCredential.user;
+                        user.getIdToken().then((idToken) => {
+                          //Set a session cookie to retore the user's idToken
+                          fetch("/sessionLogin", {
+                            method:"POST",
+                            headers:{
+                              "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                              idToken: idToken,
+                              plan:"free"
+                            })
+                          }).then((response) => {
+                            console.log('success!');
+                            window.location.assign('/dashboard')
+                          }).catch((err) => {
+                            window.location.assign('/sign-in')
+                          })
+                        })
+                      })
+                      .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                      });
+              return false;
+            });
+  };
+</script>
+
+</html>

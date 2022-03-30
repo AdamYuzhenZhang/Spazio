@@ -6,6 +6,10 @@ const admin = require("firebase-admin");
 const app = express();
 const port = process.env.PORT || 8080;
 
+//Yuzhen
+const http = require("http");
+const easyrtc = require("open-easyrtc");      // EasyRTC external module
+
 // CS5356 TODO #2
 // Uncomment this next line after you've created
 // serviceAccountKey.json
@@ -49,6 +53,15 @@ app.get("/sign-up", function (req, res) {
 
 app.get("/room-page", function (req, res) {
     res.render("pages/room-page");
+});
+app.get("/vr_tests", function (req, res) {
+    res.render("pages/vr_tests");
+});
+app.get("/urban-space-page", function (req, res) {
+    res.render("pages/urban-space-page");
+});
+app.get("/multi-player-page", function (req, res) {
+    res.render("pages/multi-player-page");
 });
 
 app.get("/dashboard", authMiddleware, async function (req, res) {
@@ -104,5 +117,78 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
   };
 });
 
-app.listen(port);
-console.log("Server started at http://localhost:" + port);
+//Yuzhen start
+// Serve the example and build the bundle in development.
+if (false) {
+    const webpackMiddleware = require("webpack-dev-middleware");
+    const webpack = require("webpack");
+    const config = require("../webpack.config");
+
+    app.use(
+        webpackMiddleware(webpack(config), {
+            publicPath: "/"
+        })
+    );
+}
+// Start Express http server
+const webServer = http.createServer(app);
+const socketIo = require("socket.io")(webServer, {
+    cors: {
+        origin: "http://localhost:8080",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
+});        // web socket external module
+// Start Socket.io so it attaches itself to Express server
+const socketServer = socketIo.listen(webServer, {"log level": 1});
+const myIceServers = [
+    {"urls":"stun:stun1.l.google.com:19302"},
+    {"urls":"stun:stun2.l.google.com:19302"},
+];
+easyrtc.setOption("appIceServers", myIceServers);
+easyrtc.setOption("logLevel", "debug");
+easyrtc.setOption("demosEnable", false);
+
+// Overriding the default easyrtcAuth listener, only so we can directly access its callback
+easyrtc.events.on("easyrtcAuth", (socket, easyrtcid, msg, socketCallback, callback) => {
+    easyrtc.events.defaultListeners.easyrtcAuth(socket, easyrtcid, msg, socketCallback, (err, connectionObj) => {
+        if (err || !msg.msgData || !msg.msgData.credential || !connectionObj) {
+            callback(err, connectionObj);
+            return;
+        }
+
+        connectionObj.setField("credential", msg.msgData.credential, {"isShared":false});
+
+        console.log("["+easyrtcid+"] Credential saved!", connectionObj.getFieldValueSync("credential"));
+
+        callback(err, connectionObj);
+    });
+});
+
+// To test, lets print the credential to the console for every room join!
+easyrtc.events.on("roomJoin", (connectionObj, roomName, roomParameter, callback) => {
+    console.log("["+connectionObj.getEasyrtcid()+"] Credential retrieved!", connectionObj.getFieldValueSync("credential"));
+    easyrtc.events.defaultListeners.roomJoin(connectionObj, roomName, roomParameter, callback);
+});
+
+// Start EasyRTC server
+easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
+    console.log("Initiated");
+
+    rtcRef.events.on("roomCreate", (appObj, creatorConnectionObj, roomName, roomOptions, callback) => {
+        console.log("roomCreate fired! Trying to create: " + roomName);
+
+        appObj.events.defaultListeners.roomCreate(appObj, creatorConnectionObj, roomName, roomOptions, callback);
+    });
+});
+
+webServer.listen(port, () => {
+    console.log("listening on http://localhost:" + port);
+});
+//Yuzhen end
+
+//app.listen(port);
+//console.log("Server started at http://localhost:" + port);
+
