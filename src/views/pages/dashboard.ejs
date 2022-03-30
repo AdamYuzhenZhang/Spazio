@@ -2,44 +2,111 @@
 <html lang="en">
 
 <head>
-  <%- include('../partials/head') %>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Band Template</title>
+  <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+  <!-- Bulma Version 0.9.0-->
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"></script>
 </head>
 
 <body>
-  <header>
-    <%- include('../partials/nav', { email: user.email }) %>
-  </header>
+<nav class="navbar is-dark">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="https://www.brandbucket.com/sites/default/files/logo_uploads/311276/large_peppydoggy.png" alt="Bulma: a modern CSS framework based on Flexbox" width="100" height="200">
+    </a>
+    <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 
-  <div class="container">
-    <div class="columns">
-      <div class="column is-3 " style="text-align: right;">
-        <aside class="menu">
-          <p class="menu-label">
-            General
-          </p>
-          <ul class="menu-list">
-            <li><a>Feed</a></li>
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="room-page">
+        TestMyRoomPage
+      </a>
+      <a class="navbar-item" href="urban-space-page">
+        UrbanSpacePage
+      </a>
+      <a class="navbar-item" href="multi-player-page">
+        MultiplayerPage
+      </a>
+      <a class="navbar-item" href="vr_tests">
+        VRTestPage
+      </a>
+    </div>
 
-          </ul>
-        </aside>
-      </div>
-      <div class="column is-4">
-        <div class="mb-6">
-          <div class="has-text-weight-bold mb-2">
-            Share a new post
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="field">
+          <div class="control">
+            <input class="input" type="text" placeholder="Search . . .">
           </div>
-          <form action="/dog-messages" method="post">
-            <input class="input" type="text" name="message" placeholder="Went to the dog park today" />
-            <button class="button mt-2">Ruff!</button>
-          </form>
-        </div>
-        <div class="feed-stream">
-          <%- include('../partials/feed-stream', { feed: feed }) %>
         </div>
       </div>
     </div>
   </div>
+</nav>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title is-1">Personal Page</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <h2 class="title is-2">WebVR Pages</h2>
+
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <figure class="image is-4by3">
+            <img src="https://vetstreet-brightspot.s3.amazonaws.com/f6/ec/a68f62ea4f4d94ac0c58a4478806/dog-with-holiday-gift-istock-000053459642.jpg">
+          </figure>
+          <p class="title">Basic Room</p>
+          <p class="subtitle">Sample A-Frame Scene</p>
+          <a class="button" href="room-page">Launch</a>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <figure class="image is-4by3">
+            <img src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F37%2F2020%2F11%2F02%2FPerfect-Dog-Gifts.jpg">
+          </figure>
+          <p class="title">Urban Space</p>
+          <p class="subtitle">Urban Space with buttons</p>
+          <a class="button" href="urban-space-page">Launch</a>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <figure class="image is-4by3">
+            <img src="https://petfriendlytravel.com/wp-content/uploads/2019/05/pet-friendly-travel-top-dog-tours-central-park-dog-walk-ny.jpg">
+          </figure>
+          <p class="title">Multiplayer</p>
+          <p class="subtitle">Connect multiple devices</p>
+          <a class="button" href="multi-player-page">Launch</a>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child box">
+          <figure class="image is-4by3">
+            <img src="https://www.rover.com/blog/wp-content/uploads/2013/06/central-park-dogs.jpg">
+          </figure>
+          <p class="title">Other Tests</p>
+          <p class="subtitle">For testing</p>
+          <a class="button" href="vr_tests">Launch</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
 
 </body>
 
