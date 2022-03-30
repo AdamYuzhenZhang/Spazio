@@ -8,6 +8,7 @@ const port = process.env.PORT || 8080;
 
 //Yuzhen
 const http = require("http");
+const easyrtc = require("open-easyrtc");      // EasyRTC external module
 
 // CS5356 TODO #2
 // Uncomment this next line after you've created
@@ -118,72 +119,68 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
 
 //Yuzhen start
 // Serve the example and build the bundle in development.
-if (process.env.NODE_ENV === "development") {
+if (false) {
     const webpackMiddleware = require("webpack-dev-middleware");
     const webpack = require("webpack");
-    const config = require("../webpack.dev");
+    const config = require("../webpack.config");
 
     app.use(
         webpackMiddleware(webpack(config), {
-            publicPath: "/dist/"
+            publicPath: "/"
         })
     );
 }
 // Start Express http server
 const webServer = http.createServer(app);
-const io = require("socket.io")(webServer);
+const socketIo = require("socket.io")(webServer, {
+    cors: {
+        origin: "http://localhost:8080",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
+});        // web socket external module
+// Start Socket.io so it attaches itself to Express server
+const socketServer = socketIo.listen(webServer, {"log level": 1});
+const myIceServers = [
+    {"urls":"stun:stun1.l.google.com:19302"},
+    {"urls":"stun:stun2.l.google.com:19302"},
+];
+easyrtc.setOption("appIceServers", myIceServers);
+easyrtc.setOption("logLevel", "debug");
+easyrtc.setOption("demosEnable", false);
 
-const rooms = {};
-
-io.on("connection", socket => {
-    console.log("user connected", socket.id);
-
-    let curRoom = null;
-
-    socket.on("joinRoom", data => {
-        const { room } = data;
-
-        if (!rooms[room]) {
-            rooms[room] = {
-                name: room,
-                occupants: {},
-            };
+// Overriding the default easyrtcAuth listener, only so we can directly access its callback
+easyrtc.events.on("easyrtcAuth", (socket, easyrtcid, msg, socketCallback, callback) => {
+    easyrtc.events.defaultListeners.easyrtcAuth(socket, easyrtcid, msg, socketCallback, (err, connectionObj) => {
+        if (err || !msg.msgData || !msg.msgData.credential || !connectionObj) {
+            callback(err, connectionObj);
+            return;
         }
 
-        const joinedTime = Date.now();
-        rooms[room].occupants[socket.id] = joinedTime;
-        curRoom = room;
+        connectionObj.setField("credential", msg.msgData.credential, {"isShared":false});
 
-        console.log(`${socket.id} joined room ${room}`);
-        socket.join(room);
+        console.log("["+easyrtcid+"] Credential saved!", connectionObj.getFieldValueSync("credential"));
 
-        socket.emit("connectSuccess", { joinedTime });
-        const occupants = rooms[room].occupants;
-        io.in(curRoom).emit("occupantsChanged", { occupants });
+        callback(err, connectionObj);
     });
+});
 
-    socket.on("send", data => {
-        io.to(data.to).emit("send", data);
-    });
+// To test, lets print the credential to the console for every room join!
+easyrtc.events.on("roomJoin", (connectionObj, roomName, roomParameter, callback) => {
+    console.log("["+connectionObj.getEasyrtcid()+"] Credential retrieved!", connectionObj.getFieldValueSync("credential"));
+    easyrtc.events.defaultListeners.roomJoin(connectionObj, roomName, roomParameter, callback);
+});
 
-    socket.on("broadcast", data => {
-        socket.to(curRoom).broadcast.emit("broadcast", data);
-    });
+// Start EasyRTC server
+easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
+    console.log("Initiated");
 
-    socket.on("disconnect", () => {
-        console.log('disconnected: ', socket.id, curRoom);
-        if (rooms[curRoom]) {
-            console.log("user disconnected", socket.id);
+    rtcRef.events.on("roomCreate", (appObj, creatorConnectionObj, roomName, roomOptions, callback) => {
+        console.log("roomCreate fired! Trying to create: " + roomName);
 
-            delete rooms[curRoom].occupants[socket.id];
-            const occupants = rooms[curRoom].occupants;
-            socket.to(curRoom).broadcast.emit("occupantsChanged", { occupants });
-
-            if (occupants == {}) {
-                console.log("everybody left room");
-                delete rooms[curRoom];
-            }
-        }
+        appObj.events.defaultListeners.roomCreate(appObj, creatorConnectionObj, roomName, roomOptions, callback);
     });
 });
 
