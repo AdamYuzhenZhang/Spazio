@@ -1,3 +1,6 @@
+//Yuzhen for deployment
+const functions = require("firebase-functions");
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -184,9 +187,10 @@ easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
     });
 });
 
-webServer.listen(port, () => {
-    console.log("listening on http://localhost:" + port);
-});
+//webServer.listen(port, () => {
+//    console.log("listening on http://localhost:" + port);
+//});
+exports.app = functions.https.onRequest(app);
 //Yuzhen end
 
 //app.listen(port);
