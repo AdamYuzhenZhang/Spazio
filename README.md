@@ -35,6 +35,9 @@ Commit History: https://github.com/AdamYuzhenZhang/Spazio/commits/main
 ## Notion Plan
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png">
 
+## Figma Design
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Figma.png">
+
 
 # Milestone 2.2: Spazio
 
