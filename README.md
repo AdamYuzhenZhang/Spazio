@@ -1,5 +1,7 @@
 # Spazio
-Link: https://github.com/Jeannelialbedo/2022-cs5356-milestone-1
+Public URL: https://spazio-cornell.web.app/
+
+Github Link: https://github.com/AdamYuzhenZhang/Spazio
 
 Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/pull/60
 
@@ -16,8 +18,21 @@ Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/
 ## Sign in page
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-up page screenshot.png">
 
-## Notion Initial Plan
-<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png"
+
+## My Room page
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/My-room.png">
+
+
+## Public Plaza page
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Public-plazea.png">
+
+## Multiplayer Game Page
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/multiplayer-game.png">
+
+
+## Notion Plan
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png">
+
 
 # Milestone 2.2: Spazio
 
