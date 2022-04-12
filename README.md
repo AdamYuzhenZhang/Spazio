@@ -3,25 +3,23 @@ Link: https://github.com/Jeannelialbedo/2022-cs5356-milestone-1
 
 Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/pull/60
 
-## Landing page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Screenshot_short1.png">
 
 ## Long screenshot of the langding page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/landing page screenshot.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/landing%20page%20screenshot.png">
 
 ## Firebase users record
 <img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Firebase%20users.png">
 
 ## Sign up page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/sign-up%20page%20screenshot.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-in%20page%20screenshot.png">
 
 ## Sign in page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/sign-in%20page%20screenshot.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-up page screenshot.png">
 
 ## Notion Initial Plan
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png"
 
-# Milestone 1 Project: Ruffhouse
+# Milestone 2.2: Spazio
 
 Refer to the assignment for most of the details of the project
 
