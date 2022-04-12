@@ -7,19 +7,19 @@ Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/
 <img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Screenshot_short1.png">
 
 ## Long screenshot of the langding page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/localhost_8080_.png">
-
-## Dashboard after signing in or signing up
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Dashboard%20after%20signin%20or%20login.png">
+<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/landing page screenshot.png">
 
 ## Firebase users record
 <img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Firebase%20users.png">
 
 ## Sign up page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Sign%20up.png">
+<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/sign-up%20page%20screenshot.png">
 
 ## Sign in page
-<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Sign%20in.png">
+<img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/sign-in%20page%20screenshot.png">
+
+## Notion Initial Plan
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png"
 
 # Milestone 1 Project: Ruffhouse
 
