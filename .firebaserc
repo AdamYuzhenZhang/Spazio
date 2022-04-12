@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "cs5356milestone1-8703d"
-  }
+    "default": "spazio-cornell",
+    "spazio": "spazio-cornell"
+  },
+  "targets": {}
 }

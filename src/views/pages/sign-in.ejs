@@ -27,19 +27,18 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-auth-compat.js"></script>
 
 <script>
-
   window.onload = () => {
     const firebaseConfig = {
       // CS5356 TODO #2
       // Create your own Firebase project. See the assignment for
       // where you can get the Firebase config
-      apiKey: "AIzaSyBzWzEMU_lxL28JFtsuEfm7qq6OfoERPi0",
-      authDomain: "cs5356milestone1-8703d.firebaseapp.com",
-      projectId: "cs5356milestone1-8703d",
-      storageBucket: "cs5356milestone1-8703d.appspot.com",
-      messagingSenderId: "489723829864",
-      appId: "1:489723829864:web:9bb87161887dc3e4d9e5dd",
-      measurementId: "G-0FKV2T7BJ4"
+      apiKey: "AIzaSyCg6hbfWJLkBlLhow2pTe-UmPAokB3M5pU",
+      authDomain: "spazio-cornell.firebaseapp.com",
+      projectId: "spazio-cornell",
+      storageBucket: "spazio-cornell.appspot.com",
+      messagingSenderId: "357010147944",
+      appId: "1:357010147944:web:cc853de51f67db48cdc9dd",
+      measurementId: "G-F18PGRRZG5"
     };
 
     const app = firebase.initializeApp(firebaseConfig);
@@ -74,7 +73,8 @@
                       })
                     }).then((response) => {
                       console.log('success!');
-                      window.location.assign('/dashboard')
+                      //window.location.assign('/dashboard')
+                      window.location.href = '/dashboard';
                     }).catch((err) => {
                       window.location.assign('/sign-in')
                     })

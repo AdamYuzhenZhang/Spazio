@@ -13,15 +13,11 @@ const port = process.env.PORT || 8080;
 const http = require("http");
 const easyrtc = require("open-easyrtc");      // EasyRTC external module
 
-// CS5356 TODO #2
-// Uncomment this next line after you've created
 // serviceAccountKey.json
 const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
 
-// CS5356 TODO #2
-// Uncomment this next block after you've created serviceAccountKey.json
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -68,8 +64,11 @@ app.get("/multi-player-page", function (req, res) {
 });
 
 app.get("/dashboard", authMiddleware, async function (req, res) {
+  console.log('opening dashboard');
   const feed = await userFeed.get();
+  console.log('opening dashboard 02');
   res.render("pages/dashboard", { user: req.user, feed });
+  console.log('opening dashboard 03');
 });
 
 app.post("/sessionLogin", async (req, res) => {
@@ -80,7 +79,8 @@ app.post("/sessionLogin", async (req, res) => {
   // And then return a 200 status code instead of a 501
 
   // Get the ID token passed
-  const idToken = req.body.idToken;
+  const idToken = req.body.idToken.toString();
+  functions.logger.log("session login debug");
   // Set session expiration to 5 days.
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
   // Create the session cookie.
@@ -90,17 +90,19 @@ app.post("/sessionLogin", async (req, res) => {
           (sessionCookie) => {
             // Set cookie policy for session cookie.
             const options = { maxAge: expiresIn, httpOnly: true, secure: true };
-            res.cookie('session', sessionCookie, options);
+            res.cookie('__session', sessionCookie, options);
             res.status(200).send(JSON.stringify({ status: 'success' }));
+            functions.logger.log("Login Success");
           },
           (error) => {
+            functions.logger.log("Failed to check session cookie", error);
             res.status(401).send('UNAUTHORIZED REQUEST!');
           }
       );
 });
 
 app.get("/sessionLogout", (req, res) => {
-  res.clearCookie("session");
+  res.clearCookie("__session");
   res.redirect("/sign-in");
 });
 
@@ -119,6 +121,7 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
     res.status(500).send({message: err}); 
   };
 });
+
 
 //Yuzhen start
 // Serve the example and build the bundle in development.
@@ -187,9 +190,10 @@ easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
     });
 });
 
-//webServer.listen(port, () => {
-//    console.log("listening on http://localhost:" + port);
-//});
+
+// webServer.listen(port, () => {
+//     console.log("listening on http://localhost:" + port);
+// });
 exports.app = functions.https.onRequest(app);
 //Yuzhen end
 

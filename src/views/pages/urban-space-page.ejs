@@ -22,19 +22,12 @@
   <%- include('../partials/nav') %>
 </header>
 
-<div class="container">
-  Urban Space Page Sign Up for a new account or <a href="/sign-in">click here to sign in with an existing account</a>
-  <form id="login-form">
-    <label>Login</label>
-    <input id="login" type="text" name="login" />
-    <label>Password</label>
-    <input type="password" name="password" />
-    <button>Log in</button>
-  </form>
-  <div id="login-error" style="display: none;">
+<section class="section">
+  <div class="container has-text-centered">
+    <h1 class="title is-1">Public Plaza</h1>
+    <p>A public plaza created using A-Frame. You can turn the camera and use the small dot in the center to hover above square buttons and toggle between scenes.</p>
   </div>
-  <a href="/dashboard">Dashboard</a>
-</div>
+</section>
 
 <style>
   a-scene {
@@ -56,10 +49,10 @@
       <a-asset-item id="1-mtl" src="../../../static/models/UrbanSysPhase1.mtl"></a-asset-item>
       <a-asset-item id="performance-obj" src="../../../static/models/UrbanSysPerformance.obj"></a-asset-item>
       <a-asset-item id="performance-mtl" src="../../../static/models/UrbanSysPerformance.mtl"></a-asset-item>
-      <a-asset-item id="dining-obj" src="../../../static/models/UrbanSysDining.obj"></a-asset-item>
-      <a-asset-item id="dining-mtl" src="../../../static/models/UrbanSysDining.mtl"></a-asset-item>
-      <a-asset-item id="plant-obj" src="../../../static/models/UrbanSysPlants.obj"></a-asset-item>
-      <a-asset-item id="plant-mtl" src="../../../static/models/UrbanSysPlants.mtl"></a-asset-item>
+      <!--a-asset-item id="dining-obj" src="models/UrbanSysDining.obj"></a-asset-item>
+      <a-asset-item id="dining-mtl" src="models/UrbanSysDining.mtl"></a-asset-item>
+      <a-asset-item id="plant-obj" src="models/UrbanSysPlants.obj"></a-asset-item>
+      <a-asset-item id="plant-mtl" src="models/UrbanSysPlants.mtl"></a-asset-item-->
       <a-asset-item id="truck-obj" src="../../../static/models/UrbanSysTrucks.obj"></a-asset-item>
       <a-asset-item id="truck-mtl" src="../../../static/models/UrbanSysTrucks.mtl"></a-asset-item>
     </a-assets>
@@ -105,10 +98,10 @@
               shadow="cast: true; receive: true">
     </a-entity>
     <!-- OBJ Model | dining -->
-    <a-entity id="dining" visible="false" class="not-clickable"
+    <!--a-entity id="dining" visible="false" class="not-clickable"
               obj-model="obj: #dining-obj; mtl: #dining-mtl"
               position="0 0 0" rotation="0 0 0" scale="1 1 1"
-              shadow="cast: true; receive: true">
+              shadow="cast: true; receive: true"-->
     </a-entity>
     <!-- OBJ Model | performance -->
     <a-entity id="performance" visible="false" class="not-clickable"
@@ -117,10 +110,10 @@
               shadow="cast: true; receive: true">
     </a-entity>
     <!-- OBJ Model | plant -->
-    <a-entity id="plant" visible="false" class="not-clickable"
+    <!--a-entity id="plant" visible="false" class="not-clickable"
               obj-model="obj: #plant-obj; mtl: #plant-mtl"
               position="0 0 0" rotation="0 0 0" scale="1 1 1"
-              shadow="cast: true; receive: true">
+              shadow="cast: true; receive: true"-->
     </a-entity>
     <!-- OBJ Model | truck -->
     <a-entity id="truck" visible="false" class="not-clickable"
@@ -164,7 +157,7 @@
       <a-entity text="font: mozillavr; value: Phase 1: Cleared Street"
                 position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
     </a-entity>
-    <a-entity position="3 1.6 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+    <!--a-entity position="3 1.6 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
       <a-box id="dining" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
              event-set__enter="_event: mouseenter; material.color: #FFFF00"
              event-set__leave="_event: mouseleave; material.color: #DEDE00"
@@ -178,8 +171,8 @@
       </a-box>
       <a-entity text="font: mozillavr; value: Intervention: Dining"
                 position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
-    </a-entity>
-    <a-entity position="3 1.3 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+    </a-entity-->
+    <a-entity position="3 1.6 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
       <a-box id="performance" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
              event-set__enter="_event: mouseenter; material.color: #FFFF00"
              event-set__leave="_event: mouseleave; material.color: #DEDE00"
@@ -194,7 +187,7 @@
       <a-entity text="font: mozillavr; value: Intervention: Performance"
                 position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
     </a-entity>
-    <a-entity position="3 1.0 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+    <!--a-entity position="3 1.0 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
       <a-box id="plant" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
              event-set__enter="_event: mouseenter; material.color: #FFFF00"
              event-set__leave="_event: mouseleave; material.color: #DEDE00"
@@ -208,8 +201,8 @@
       </a-box>
       <a-entity text="font: mozillavr; value: Intervention: Green Space"
                 position="0.4 0.1 0" rotation="0 180 0" scale="4 4 4"></a-entity>
-    </a-entity>
-    <a-entity position="3 0.7 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
+    </a-entity-->
+    <a-entity position="3 1.3 5" rotation="0 -50 0" scale="0.6 0.6 0.6" >
       <a-box id="truck" color="#DEDE00" scale="0.4 0.4 0.4" class="clickable"
              event-set__enter="_event: mouseenter; material.color: #FFFF00"
              event-set__leave="_event: mouseleave; material.color: #DEDE00"
