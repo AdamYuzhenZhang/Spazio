@@ -3,7 +3,9 @@ Public URL: https://spazio-cornell.web.app/
 
 Github Link: https://github.com/AdamYuzhenZhang/Spazio
 
-Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/pull/60
+Commit History: https://github.com/AdamYuzhenZhang/Spazio/commits/main
+
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/commit%20history.png">
 
 
 ## Long screenshot of the langding page
