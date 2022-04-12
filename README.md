@@ -1,4 +1,4 @@
-# Peppy Puppy
+# Spazio
 Link: https://github.com/Jeannelialbedo/2022-cs5356-milestone-1
 
 Link to Pull Request: https://github.com/intricatecloud/2022-cs5356-milestone-1/pull/60
