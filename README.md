@@ -15,10 +15,10 @@ Commit History: https://github.com/AdamYuzhenZhang/Spazio/commits/main
 <img src="https://github.com/Jeannelialbedo/2022-cs5356-milestone-1/blob/main/Firebase%20users.png">
 
 ## Sign up page
-<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-in%20page%20screenshot.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-up%20page%20screenshot.png">
 
 ## Sign in page
-<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-up page screenshot.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-in%20page%20screenshot.png">
 
 ## Personal page
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/PersonalPage.JPG">
