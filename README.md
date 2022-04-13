@@ -20,6 +20,8 @@ Commit History: https://github.com/AdamYuzhenZhang/Spazio/commits/main
 ## Sign in page
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/sign-up page screenshot.png">
 
+## Personal page
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/PersonalPage.JPG">
 
 ## My Room page
 <img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/My-room.png">
@@ -33,7 +35,10 @@ Commit History: https://github.com/AdamYuzhenZhang/Spazio/commits/main
 
 
 ## Notion Plan
-<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.png">
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Notion%20Plan.JPG">
+
+## Figma Prototype
+<img src="https://github.com/AdamYuzhenZhang/Spazio/blob/main/Figma.png">
 
 
 # Milestone 2.2: Spazio
