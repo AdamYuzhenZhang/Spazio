@@ -9,66 +9,159 @@
 </head>
 
 <body>
-<header>
-  <%- include('../partials/nav') %>
-</header>
-
-<section class="section">
-  <div class="container has-text-centered">
-    <h1 class="title is-1">My Room</h1>
-  </div>
-</section>
-<section class="section">
-  <div class="container has-text-centered">
-    <h1 class="title is-1">Enter user profile</h1>
-    <form action="/user-home-init" id="user-profile-initialization" method="POST">
-      <input type="hidden" name="email" value="<%= user.email%>">
-      <label>Username</label>
-      <input required type="text" name="name" class="input">
-      <label>Rooms</label>
-      <input required type="number" name="rooms" class="input">
-      <button class="button" type="submit">Save Profile</button>
-    </form>
-  </div>
+<style>
+  a-scene {
+    height: 260px;
+    width: 100%;
+    left: 40%;
+    margin: 0 0 0 -40%;
+  }
+</style>
 
   <section class="hero is-success is-fullheight has-background-info">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-white">Sign Up</h3>
+        <div class="column is-8 is-offset-2">
+          <h3 class="title has-text-white">Welcome</h3>
           <hr class="login-hr">
-          <p class="subtitle has-text-white">Sign Up for a new account or <a class="subtitle has-text-black" href="/sign-in">click here to sign in with an existing account</a></p>
+          <p class="subtitle has-text-white">Customize your personal information</p>
           <div class="box">
-            <figure class="avatar">
-              <img src="../../../static/logo.png">
-            </figure>
-            <form id="login-form">
+            <form action="/user-home-init" id="info-form" method="POST">
+
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" type="text" name="login" placeholder="Your Email" autofocus="">
+                  <input class="input is-large" type="text" name="email" value="<%= user.email%>" placeholder="<%= user.email%>" disabled>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" name="name" id="name" placeholder="User Name">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <textarea class="textarea is-large has-fixed-size" type="text" name="bio" id="bio" placeholder="Describe who you are"></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <div class="select is-large is-fullwidth" type="text" name="pronouns" id="pronouns">
+                  <select>
+                    <option value="">Pronouns</option>
+                    <option value="She/Her">She/Her</option>
+                    <option value="He/Him">He/Him</option>
+                    <option value="They/Them">They/Them</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
 
               <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="password" name="password" id="password" placeholder="Your Password">
+                <div class="select is-large is-fullwidth" type="number" name="roomID" id="roomID">
+                  <select>
+                    <option value="0">Choose your home</option>
+                    <option value="0">Indoor Room</option>
+                    <option value="1">Public Plaza</option>
+                  </select>
                 </div>
               </div>
-              <div class="field">
-                <label class="checkbox">
-                  <input type="checkbox">
-                  Remember me
-                </label>
-              </div>
-              <button class="button is-block is-info is-large is-fullwidth">Sign Up<i class="fa fa-sign-in" aria-hidden="true"></i></button>
-              <div id="login-error">
 
+              <div class="field">
+                <div class="columns">
+                  <div class="column">
+                    <p></p>
+                    <p class="title is-5 has-text-black">Indoor Room</p>
+                    <div class="container" id="myEmbeddedScene">
+                      <a-scene embedded vr-mode-ui="enabled: false">
+                        <!-- Sky -->
+                        <a-sky color="#E9E9E9"></a-sky>
+                        <!-- Ambient Light -->
+                        <a-entity light="type: ambient; color: #A1A1A1"></a-entity>
+                        <!-- Directional Light -->
+                        <a-entity light="type: directional; color: #BBBBBB; intensity: 0.5; castShadow: true" position="2 2 1"></a-entity>
+
+                        <!-- Camera -->
+                        <a-entity position="0 0 0" rotation="0 0 0">
+                          <a-camera user-height="1.6" active="true">
+                            <a-entity id="myCursor"
+                                      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.001 0.001 0.001; to: 0.01 0.01 0.01"
+                                      animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 0.01 0.01 0.01; to: 0.001 0.001 0.001"
+                                      animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 0.01 0.01 0.01"
+                                      cursor="fuse: true;"
+                                      material="color: #C0C0C0; shader: flat"
+                                      position="0 0 -1"
+                                      scale="0.01 0.01 0.01"
+                                      geometry="primitive: ring"
+                                      raycaster="objects: .clickable">
+                            </a-entity>
+                            <a-entity text="value: Hello World;" position="0 0 1"></a-entity>
+                          </a-camera>
+                        </a-entity>
+
+                        <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+                        <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+                        <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+                        <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4"></a-plane>
+
+                        <a-asset-item id="messageText" src="../../../static/pages/info.html"></a-asset-item>
+                      </a-scene>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <p></p>
+                    <p class="title is-5 has-text-black">Public Plaza</p>
+                    <div class="container" id="myEmbeddedScene">
+                      <a-scene embedded vr-mode-ui="enabled: false">
+                        <a-assets>
+                          <a-asset-item id="base-obj" src="../../../static/models/UrbanSysBase.obj"></a-asset-item>
+                          <a-asset-item id="base-mtl" src="../../../static/models/UrbanSysBase.mtl"></a-asset-item>
+                          <a-asset-item id="performance-obj" src="../../../static/models/UrbanSysPerformance.obj"></a-asset-item>
+                          <a-asset-item id="performance-mtl" src="../../../static/models/UrbanSysPerformance.mtl"></a-asset-item>
+                        </a-assets>
+
+                        <!-- Sky -->
+                        <a-sky color="#E9E9E9"></a-sky>
+                        <!-- Ambient Light -->
+                        <a-entity light="type: ambient; color: #A1A1A1"></a-entity>
+                        <!-- Directional Light -->
+                        <a-entity light="type: directional; color: #BBBBBB; intensity: 0.5; castShadow: true" position="2 2 1"></a-entity>
+
+                        <!-- Camera -->
+                        <a-entity position="6 0 2" rotation="0 120 0">
+                          <a-camera user-height="1.6" active="true">
+                            <a-entity id="myCursor"
+                                      animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.001 0.001 0.001; to: 0.01 0.01 0.01"
+                                      animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 0.01 0.01 0.01; to: 0.001 0.001 0.001"
+                                      animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 0.01 0.01 0.01"
+                                      cursor="fuse: true;"
+                                      material="color: #C0C0C0; shader: flat"
+                                      position="0 0 -1"
+                                      scale="0.01 0.01 0.01"
+                                      geometry="primitive: ring"
+                                      raycaster="objects: .clickable">
+                            </a-entity>
+                          </a-camera>
+                        </a-entity>
+                        <!-- OBJ Model | Base -->
+                        <a-entity obj-model="obj: #base-obj; mtl: #base-mtl" class="not-clickable"
+                                  position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                  shadow="cast: true; receive: true">
+                        </a-entity>
+                        <!-- OBJ Model | performance -->
+                        <a-entity id="performance" visible="true" class="not-clickable"
+                                  obj-model="obj: #performance-obj; mtl: #performance-mtl"
+                                  position="0 0 0" rotation="0 0 0" scale="1 1 1"
+                                  shadow="cast: true; receive: true">
+                        </a-entity>
+                      </a-scene>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              <button class="button is-block is-info is-large is-fullwidth">Save<i class="fa fa-sign-in" aria-hidden="true"></i></button>
             </form>
           </div>
           <p class="has-text-white">
-            <a href="sign-in">Sign In</a> &nbsp;·&nbsp;
-            <a href="../">Forgot Password</a> &nbsp;·&nbsp;
             <a href="../">Need Help?</a>
           </p>
         </div>
@@ -76,54 +169,6 @@
     </div>
   </section>
   <script async type="text/javascript" src="../js/bulma.js"></script>
-
-<style>
-  a-scene {
-    height: 600px;
-    width: 80%;
-    left: 50%;
-    margin: 0 0 0 -40%;
-  }
-</style>
-
-<div class="container" id="myEmbeddedScene">
-  <a-scene embedded>
-
-    <!--a-entity geometry="primitive: box" material="shader: html; target: #htmlElement"></a-entity-->
-
-    <!-- Sky -->
-    <a-sky color="#E9E9E9"></a-sky>
-    <!-- Ambient Light -->
-    <a-entity light="type: ambient; color: #A1A1A1"></a-entity>
-    <!-- Directional Light -->
-    <a-entity light="type: directional; color: #BBBBBB; intensity: 0.5; castShadow: true" position="2 2 1"></a-entity>
-
-    <!-- Camera -->
-    <a-entity position="0 0 0" rotation="0 0 0">
-      <a-camera user-height="1.6" active="true">
-        <a-entity id="myCursor"
-                  animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.001 0.001 0.001; to: 0.01 0.01 0.01"
-                  animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 0.01 0.01 0.01; to: 0.001 0.001 0.001"
-                  animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 500; to: 0.01 0.01 0.01"
-                  cursor="fuse: true;"
-                  material="color: #C0C0C0; shader: flat"
-                  position="0 0 -1"
-                  scale="0.01 0.01 0.01"
-                  geometry="primitive: ring"
-                  raycaster="objects: .clickable">
-        </a-entity>
-        <a-entity text="value: Hello World;" position="0 0 1"></a-entity>
-      </a-camera>
-    </a-entity>
-
-    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4"></a-plane>
-
-    <a-asset-item id="messageText" src="../../../static/pages/info.html"></a-asset-item>
-  </a-scene>
-</div>
 
 </body>
 

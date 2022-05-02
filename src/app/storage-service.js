@@ -1,11 +1,13 @@
 // handles firestore
 module.exports = {
-    initUser: async (db, email, name, rooms) =>{
+    initUser: async (db, email, name, bio, pronouns, roomID) =>{
         const ref = db.collection('user').doc(email)
         await ref.set({
             email:email,
             name:name,
-            rooms:rooms,
+            bio:bio,
+            pronouns:pronouns,
+            roomID:roomID,
         })
     },
 

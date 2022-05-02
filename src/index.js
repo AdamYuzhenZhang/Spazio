@@ -135,7 +135,7 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
 
 app.post('/user-home-init', async function(req, res){
     const db = admin.firestore();
-    storageService.initUser(db, req.body.email, req.body.name, req.body.rooms);
+    storageService.initUser(db, req.body.email, req.body.name, req.body.bio, req.body.room);
     const user = await storageService.getUserByEmail(db, req.body.email);
     const user_info = req.body;
     console.log(user);
