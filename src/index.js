@@ -1,4 +1,4 @@
-//Yuzhen for deployment
+//For deployment
 const functions = require("firebase-functions");
 
 const express = require("express");
@@ -17,6 +17,7 @@ const easyrtc = require("open-easyrtc");      // EasyRTC external module
 const serviceAccount = require("./config/serviceAccountKey.json");
 const userFeed = require("./app/user-feed");
 const authMiddleware = require("./app/auth-middleware");
+const storageService = require("./app/storage-service");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -71,6 +72,16 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
   console.log('opening dashboard 03');
 });
 
+app.get("/user-home", authMiddleware, async function (req, res) {
+    const db = admin.firestore();
+    const user_info = await storageService.getUserByEmail(db, req.user.email);
+    res.render("pages/user-home", {user_info:user_info});
+});
+
+app.get("/user-info", authMiddleware, async function (req, res) {
+    res.render("pages/user-info", { user: req.user });
+});
+
 app.post("/sessionLogin", async (req, res) => {
   // CS5356 TODO #4
   // Get the ID token from the request body
@@ -119,23 +130,32 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
       })
   } catch (err){
     res.status(500).send({message: err}); 
-  };
+  };x
 });
 
+app.post('/user-home-init', async function(req, res){
+    const db = admin.firestore();
+    storageService.initUser(db, req.body.email, req.body.name, req.body.rooms);
+    const user = await storageService.getUserByEmail(db, req.body.email);
+    const user_info = req.body;
+    console.log(user);
+    console.log(user_info);
+    res.render("pages/user-home", {user_info:user_info})
+})
 
 //Yuzhen start
-// Serve the example and build the bundle in development.
-if (false) {
-    const webpackMiddleware = require("webpack-dev-middleware");
-    const webpack = require("webpack");
-    const config = require("../webpack.config");
-
-    app.use(
-        webpackMiddleware(webpack(config), {
-            publicPath: "/"
-        })
-    );
-}
+// // Serve the example and build the bundle in development.
+// if (false) {
+//     const webpackMiddleware = require("webpack-dev-middleware");
+//     const webpack = require("webpack");
+//     const config = require("../webpack.config");
+//
+//     app.use(
+//         webpackMiddleware(webpack(config), {
+//             publicPath: "/"
+//         })
+//     );
+// }
 // Start Express http server
 const webServer = http.createServer(app);
 const socketIo = require("socket.io")(webServer, {
@@ -194,6 +214,7 @@ easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
 // webServer.listen(port, () => {
 //     console.log("listening on http://localhost:" + port);});
 exports.app = functions.https.onRequest(app);
+//exports.app = functions.https.onRequest(webServer);
 //Yuzhen end
 
 //app.listen(port);
