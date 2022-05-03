@@ -24,17 +24,6 @@
     <p><%= user_info.rooms%> </p>
   </div>
 </section>
-<section class="section">
-  <div class="container has-text-centered">
-    <h1 class="title is-1">Enter user profile</h1>
-    <form action="/initUser" id="user-profile-initialization" method="POST">
-      <label>Username</label>
-      <input required type="text" name="name" class="input">
-      <label>Rooms</label>
-      <input required type="number" name="rooms" class="input">
-      <button class="button" type="submit">Save Profile</button>
-    </form>
-  </div>
 
 <style>
   a-scene {
@@ -47,6 +36,9 @@
 
 <div class="container" id="myEmbeddedScene">
   <a-scene embedded>
+    <a-assets>
+      <!--put models here-->
+    </a-assets>
 
     <!--a-entity geometry="primitive: box" material="shader: html; target: #htmlElement"></a-entity-->
 
@@ -87,6 +79,77 @@
     <a-asset-item id="messageText" src="../../../static/pages/info.html"></a-asset-item>
   </a-scene>
 </div>
+
+  <section class="hero is-success is-fullheight has-background-info">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-8 is-offset-2">
+          <h3 class="title has-text-white">Welcome</h3>
+          <hr class="login-hr">
+          <p class="subtitle has-text-white">Customize your personal information</p>
+          <div class="box">
+            <form action="/user-home-init" id="info-form" method="POST">
+
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" name="email" id="email" value="<%= user_info.email%>" placeholder="<%= user_info.email%>">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" name="name" id="name" placeholder="User Name">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <textarea class="textarea is-large has-fixed-size" type="text" name="bio" id="bio" placeholder="Describe who you are"></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <div class="select is-large is-fullwidth" type="text" name="pronouns" id="pronouns">
+                  <select type="text" name="pronouns" id="pronouns">
+                    <option value="Other">Pronouns</option>
+                    <option value="She/Her">She/Her</option>
+                    <option value="He/Him">He/Him</option>
+                    <option value="They/Them">They/Them</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <hr class="login-hr">
+              <div class="block">
+                <h3 class="title has-text-black">Create Your Home</h3>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" name="roomName" id="roomName" placeholder="Your Home Name">
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="select is-large is-fullwidth" type="text" name="roomID" id="roomID">
+                  <select type="text" name="roomID" id="roomID">
+                    <option value="0">Choose your home type</option>
+                    <option value="0">Indoor Room</option>
+                    <option value="1">Public Plaza</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="button is-block is-info is-large is-fullwidth">Save<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+            </form>
+          </div>
+          <p class="has-text-white">
+            <a href="../">Need Help?</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script async type="text/javascript" src="../js/bulma.js"></script>
+
 
 </body>
 

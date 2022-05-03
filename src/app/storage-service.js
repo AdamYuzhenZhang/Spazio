@@ -16,18 +16,19 @@ module.exports = {
         return doc.data();
     },
 
-    initRoom: async (db, roomID, roomName, usersInRoom, roomLayout) => {
-        const ref = db.collection('room').doc(roomID)
+    initRoom: async (db, ownerEmail, roomName, roomType, usersInRoom, roomLayout) => {
+        const ref = db.collection('room').doc(ownerEmail)
         await ref.set({
-            roomID:roomID,
+            ownerEmail:ownerEmail,
             roomName:roomName,
+            roomType:roomType,
             usersInRoom:usersInRoom,
             roomLayout:roomLayout
         })
     },
 
-    getRoomByID: async (db, roomID) => {
-        const doc = await db.collection("room").doc(roomID).get();
+    getRoomByOwner: async (db, ownerEmail) => {
+        const doc = await db.collection("room").doc(ownerEmail).get();
         return doc.data();
     }
 }

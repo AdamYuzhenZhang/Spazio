@@ -55,10 +55,21 @@
                 </div>
               </div>
 
+              <hr class="login-hr">
+              <div class="block">
+                <h3 class="title has-text-black">Create Your Home</h3>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <input class="input is-large" type="text" name="roomName" id="roomName" placeholder="Your Home Name">
+                </div>
+              </div>
+
               <div class="field">
                 <div class="select is-large is-fullwidth" type="text" name="roomID" id="roomID">
                   <select type="text" name="roomID" id="roomID">
-                    <option value="0">Choose your home</option>
+                    <option value="0">Choose your home type</option>
                     <option value="0">Indoor Room</option>
                     <option value="1">Public Plaza</option>
                   </select>
@@ -68,8 +79,9 @@
               <div class="field">
                 <div class="columns">
                   <div class="column">
-                    <p></p>
-                    <p class="title is-5 has-text-black">Indoor Room</p>
+                    <div class="block">
+                      <p class="title is-5 has-text-black">Indoor Room</p>
+                    </div>
                     <div class="container" id="myEmbeddedScene">
                       <a-scene embedded vr-mode-ui="enabled: false">
                         <!-- Sky -->
@@ -107,8 +119,9 @@
                     </div>
                   </div>
                   <div class="column">
-                    <p></p>
-                    <p class="title is-5 has-text-black">Public Plaza</p>
+                    <div class="block">
+                      <p class="title is-5 has-text-black">Public Plaza</p>
+                    </div>
                     <div class="container" id="myEmbeddedScene">
                       <a-scene embedded vr-mode-ui="enabled: false">
                         <a-assets>

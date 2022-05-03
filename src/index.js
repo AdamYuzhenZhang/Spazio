@@ -75,10 +75,11 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 app.get("/user-home", authMiddleware, async function (req, res) {
     const db = admin.firestore();
     const user_info = await storageService.getUserByEmail(db, req.user.email);
+    const room_info = await storageService.getRoomByOwner(db, req.body.email);
     if (user_info.roomID == "0"){
-        res.render("pages/user-home", {user_info:user_info});
+        res.render("pages/user-home", {user_info:user_info, room_info:room_info});
     } else {
-        res.render("pages/user-home-urban", {user_info:user_info});
+        res.render("pages/user-home-urban", {user_info:user_info, room_info:room_info});
     }
 });
 
@@ -139,24 +140,20 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
 
 app.post('/user-home-init', async function(req, res){
     const db = admin.firestore();
-    console.log("init 000");
-    console.log(req.body.email);
-    console.log(req.body.name);
-    console.log(req.body.pronouns);
-    console.log(req.body.bio);
-
-    console.log(req.body.roomID);
+    //console.log("init 000");
     storageService.initUser(db, req.body.email, req.body.name, req.body.bio, req.body.pronouns, req.body.roomID);
-    console.log("init 111");
+    storageService.initRoom(db, req.body.email,  req.body.roomName, req.body.roomID, [req.body.email], [0,0,0]);
+    //console.log("init 111");
     const user = await storageService.getUserByEmail(db, req.body.email);
-    console.log("init 222");
+    const room = await storageService.getRoomByOwner(db, req.body.email);
+    //console.log("init 222");
     const user_info = req.body;
-    console.log(user);
+    //console.log(user);
     console.log(user_info);
     if (req.body.roomID == "0"){
-        res.render("pages/user-home", {user_info:user_info})
+        res.render("pages/user-home", {user_info:user_info, room_info:room})
     } else {
-        res.render("pages/user-home-urban", {user_info:user_info})
+        res.render("pages/user-home-urban", {user_info:user_info, room_info:room})
     }
 })
 
