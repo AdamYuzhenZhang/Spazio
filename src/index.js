@@ -141,19 +141,44 @@ app.post("/dog-messages", authMiddleware, async (req, res) => {
 app.post('/user-home-init', async function(req, res){
     const db = admin.firestore();
     //console.log("init 000");
-    storageService.initUser(db, req.body.email, req.body.name, req.body.bio, req.body.pronouns, req.body.roomID);
-    storageService.initRoom(db, req.body.email,  req.body.roomName, req.body.roomID, [req.body.email], [0,0,0]);
+    await storageService.initUser(db, req.body.email, req.body.name, req.body.bio, req.body.pronouns, req.body.roomID, req.body.country, req.body.language);
+    await storageService.initRoom(db, req.body.email,  req.body.roomName, req.body.roomID, [req.body.email], [0,0,0], "");
     //console.log("init 111");
+    //var startTime = performance.now()
     const user = await storageService.getUserByEmail(db, req.body.email);
+    //var endTime = performance.now()
+    //console.log(`Read user data took ${endTime - startTime} milliseconds`)
+
+    //var startTime2 = performance.now()
     const room = await storageService.getRoomByOwner(db, req.body.email);
+    //var endTime2 = performance.now()
+    //console.log(`Read room data took ${endTime2 - startTime2} milliseconds`)
+
     //console.log("init 222");
     const user_info = req.body;
     //console.log(user);
     console.log(user_info);
+    console.log(room);
     if (req.body.roomID == "0"){
         res.render("pages/user-home", {user_info:user_info, room_info:room})
     } else {
         res.render("pages/user-home-urban", {user_info:user_info, room_info:room})
+    }
+})
+
+app.post('/user-home-customize', async function(req, res){
+    const db = admin.firestore();
+    //console.log("init 000");
+    const user = await storageService.getUserByEmail(db, req.body.email);
+    const room = await storageService.getRoomByOwner(db, req.body.email);
+    await storageService.initRoom(db, room.ownerEmail,  room.roomName, room.roomType, room.usersInRoom,
+        [req.body.layout1,req.body.layout2,req.body.layout3], req.body.message);
+    const roomNew = await storageService.getRoomByOwner(db, req.body.email);
+    console.log("room");
+    if (user.roomID == "0"){
+        res.render("pages/user-home", {user_info:user, room_info:roomNew})
+    } else {
+        res.render("pages/user-home-urban", {user_info:user, room_info:roomNew})
     }
 })
 
@@ -225,8 +250,8 @@ easyrtc.listen(app, socketServer, null, (err, rtcRef) => {
 });
 
 
-// webServer.listen(port, () => {
-//     console.log("listening on http://localhost:" + port);});
+//webServer.listen(port, () => {
+//    console.log("listening on http://localhost:" + port);});
 exports.app = functions.https.onRequest(app);
 //exports.app = functions.https.onRequest(webServer);
 //Yuzhen end

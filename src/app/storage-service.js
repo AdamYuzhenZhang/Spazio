@@ -1,6 +1,6 @@
 // handles firestore
 module.exports = {
-    initUser: async (db, email, name, bio, pronouns, roomID) =>{
+    initUser: async (db, email, name, bio, pronouns, roomID, country, language) =>{
         const ref = db.collection('user').doc(email)
         await ref.set({
             email:email,
@@ -8,6 +8,8 @@ module.exports = {
             bio:bio,
             pronouns:pronouns,
             roomID:roomID,
+            country:country,
+            language:language
         })
     },
 
@@ -16,14 +18,15 @@ module.exports = {
         return doc.data();
     },
 
-    initRoom: async (db, ownerEmail, roomName, roomType, usersInRoom, roomLayout) => {
+    initRoom: async (db, ownerEmail, roomName, roomType, usersInRoom, roomLayout, message) => {
         const ref = db.collection('room').doc(ownerEmail)
         await ref.set({
             ownerEmail:ownerEmail,
             roomName:roomName,
             roomType:roomType,
             usersInRoom:usersInRoom,
-            roomLayout:roomLayout
+            roomLayout:roomLayout,
+            message:message
         })
     },
 

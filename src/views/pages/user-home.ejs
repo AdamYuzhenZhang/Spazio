@@ -15,13 +15,7 @@
 
 <section class="section">
   <div class="container has-text-centered">
-    <h1 class="title is-1">My Room</h1>
-    <p>User Info: email</p>
-    <p><%= user_info.email%> </p>
-    <p>User Info: name</p>
-    <p><%= user_info.name%> </p>
-    <p>User Info: rooms</p>
-    <p><%= user_info.rooms%> </p>
+    <h1 class="title is-1">Welcome Home! <%= user_info.name%></h1>
   </div>
 </section>
 
@@ -67,12 +61,40 @@
       </a-camera>
     </a-entity>
 
-    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    <a-entity text="font: mozillavr; value: user email"
-              position="-1 2 -3" rotation="0 45 0" scale="8 8 8"></a-entity>
-    <a-entity text="font: mozillavr; value: <%= user_info.email%>"
-              position="-1 1.5 -3" rotation="0 45 0" scale="8 8 8"></a-entity>
-    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <% if(room_info.roomLayout[0] == 1) { %>
+      <a-entity text="font: mozillavr; color: #9966ff; value: Hi!"
+                position="2 4.2 -5" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+      <a-entity text="font: mozillavr; color: #9966ff; value: I'm <%= user_info.name%> (<%= user_info.pronouns%>)"
+                position="2 3.8 -5" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+      <a-entity text="font: mozillavr; color: #9966ff; value: <%= user_info.bio%>"
+                position="2 3.4 -5" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+      <a-entity text="font: mozillavr; color: #9966ff; value: I'm from <%= user_info.country%> and I speak <%= user_info.language%>"
+                position="2 3 -5" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+    <% }%>
+
+    <a-entity text="font: mozillavr; color: #660033; value: Welcome to <%= room_info.roomName%>"
+              position="2 0.8 -2.2" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+    <a-entity text="font: mozillavr; color: #660033; value: <%= room_info.message%>"
+              position="2 0.4 -2.2" rotation="0 0 0" scale="6 6 6" anchor="center"></a-entity>
+
+    <% if(room_info.roomLayout[1] == 0) { %>
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+    <% } else if(room_info.roomLayout[1] == 1) { %>
+      <a-entity geometry="primitive: cone; radiusBottom: 1; radiusTop: 0"
+                position="-1 0.5 -3" rotation="0 45 0" material="color: #4CC3D9"></a-entity>
+    <% } else if(room_info.roomLayout[1] == 2) { %>
+      <a-entity geometry="primitive: torus; radius: 1; radiusTubular: 0.1; arc: 360"
+                position="-1 0.5 -3" rotation="0 45 0" material="color: #4CC3D9"></a-entity>
+    <% }%>
+
+    <% if(room_info.roomLayout[2] == 0) { %>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <% } else if(room_info.roomLayout[2] == 1) { %>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#71ef2d"></a-sphere>
+    <% } else if(room_info.roomLayout[2] == 2) { %>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#2d40ef"></a-sphere>
+    <% }%>
+
     <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4"></a-plane>
 
@@ -80,76 +102,59 @@
   </a-scene>
 </div>
 
-  <section class="hero is-success is-fullheight has-background-info">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="column is-8 is-offset-2">
-          <h3 class="title has-text-white">Welcome</h3>
-          <hr class="login-hr">
-          <p class="subtitle has-text-white">Customize your personal information</p>
-          <div class="box">
-            <form action="/user-home-init" id="info-form" method="POST">
-
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="text" name="email" id="email" value="<%= user_info.email%>" placeholder="<%= user_info.email%>">
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="text" name="name" id="name" placeholder="User Name">
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <textarea class="textarea is-large has-fixed-size" type="text" name="bio" id="bio" placeholder="Describe who you are"></textarea>
-                </div>
-              </div>
-              <div class="field">
-                <div class="select is-large is-fullwidth" type="text" name="pronouns" id="pronouns">
-                  <select type="text" name="pronouns" id="pronouns">
-                    <option value="Other">Pronouns</option>
-                    <option value="She/Her">She/Her</option>
-                    <option value="He/Him">He/Him</option>
-                    <option value="They/Them">They/Them</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <hr class="login-hr">
-              <div class="block">
-                <h3 class="title has-text-black">Create Your Home</h3>
-              </div>
-
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="text" name="roomName" id="roomName" placeholder="Your Home Name">
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="select is-large is-fullwidth" type="text" name="roomID" id="roomID">
-                  <select type="text" name="roomID" id="roomID">
-                    <option value="0">Choose your home type</option>
-                    <option value="0">Indoor Room</option>
-                    <option value="1">Public Plaza</option>
-                  </select>
-                </div>
-              </div>
-
-              <button class="button is-block is-info is-large is-fullwidth">Save<i class="fa fa-sign-in" aria-hidden="true"></i></button>
-            </form>
-          </div>
-          <p class="has-text-white">
-            <a href="../">Need Help?</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
   <script async type="text/javascript" src="../js/bulma.js"></script>
 
+<div class="column is-8 is-offset-2">
+  <hr class="login-hr">
+  <div class="box has-text-centered">
+    <form action="/user-home-customize" id="room-form" method="POST">
+      <div class="block">
+        <h3 class="title has-text-black">Customize <%= room_info.roomName%></h3>
+      </div>
+      <hr class="login-hr">
+      <input class="input is-large" type="hidden" name="email" id="email" value="<%= user_info.email%>">
+      <div class="field">
+        <div class="select is-large is-fullwidth" type="number" name="layout1" id="layout1">
+          <select type="number" name="layout1" id="layout1">
+            <option value="<%= room_info.roomLayout[0]%>">Show your info</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="input is-large" type="text" name="message" id="message" value="<%= room_info.message%>" placeholder="Message for visitors">
+        </div>
+      </div>
+      <div class="field">
+        <div class="select is-large is-fullwidth" type="number" name="layout2" id="layout2">
+          <select type="number" name="layout2" id="layout2">
+            <option value="<%= room_info.roomLayout[1]%>">Change blue model</option>
+            <option value="0">Cube</option>
+            <option value="1">Cone</option>
+            <option value="2">Torus</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <div class="select is-large is-fullwidth" type="number" name="layout3" id="layout3">
+          <select type="number" name="layout3" id="layout3">
+            <option value=<%= room_info.roomLayout[2]%>>Change sphere color</option>
+            <option value="0">Red</option>
+            <option value="1">Green</option>
+            <option value="2">Blue</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="button is-block is-info is-large is-fullwidth">Update<i class="fa fa-sign-in" aria-hidden="true"></i></button>
+    </form>
+  </div>
+  <p class="has-text-white">
+    <a href="../">Need Help?</a>
+  </p>
+</div>
 
 </body>
 
