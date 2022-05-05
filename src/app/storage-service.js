@@ -31,6 +31,7 @@ module.exports = {
     },
 
     getRoomByOwner: async (db, ownerEmail) => {
+        //console.log(ownerEmail);
         const doc = await db.collection("room").doc(ownerEmail).get();
         return doc.data();
     }

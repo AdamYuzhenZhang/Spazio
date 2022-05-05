@@ -75,7 +75,9 @@ app.get("/dashboard", authMiddleware, async function (req, res) {
 app.get("/user-home", authMiddleware, async function (req, res) {
     const db = admin.firestore();
     const user_info = await storageService.getUserByEmail(db, req.user.email);
-    const room_info = await storageService.getRoomByOwner(db, req.body.email);
+    //console.log(user_info);
+    const room_info = await storageService.getRoomByOwner(db, req.user.email);
+    //console.log(room_info);
     if (user_info.roomID == "0"){
         res.render("pages/user-home", {user_info:user_info, room_info:room_info});
     } else {
